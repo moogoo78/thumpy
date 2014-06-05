@@ -6,9 +6,10 @@ import os, os.path, sys
 from PIL import Image
 import click
 
-size = (128, 128)
 
-def make_thumb(path, fn, tgt_dir):
+
+def make_thumb(path, fn, tgt_dir, sz):
+    size = (sz, sz)
     """Make image thumbnail"""
     if not os.path.exists(tgt_dir):
         os.makedirs(tgt_dir)
@@ -37,13 +38,15 @@ def check_image(fname):
 
 
 @click.command()
-@click.option('--src_dir', '-s', prompt='source dir', default = '.',
+@click.option('--src_dir', '-i', prompt='source dir', default = '.',
               help='source directory to make thumbnails')
-@click.option('--tgt_dir', '-t', prompt='target dir', default = '.',
+@click.option('--tgt_dir', '-o', prompt='target dir', default = '.',
               help='target directory to save thumbnails')
+@click.option('--size', '-s', prompt='size', default=650,
+              help='thumbnails size')
 @click.option('-k', prompt='keep struct (y/n)', type=click.Choice(['y', 'n']), default='n',
-              help='keep the directory structure')
-def main(src_dir, tgt_dir, k):
+              help='To keep the directory structure')
+def main(src_dir, tgt_dir, size, k):
     """Batch make image thumbnails."""
     count = 0
     for path, dirs, files in os.walk(src_dir, topdown=False):
@@ -57,7 +60,7 @@ def main(src_dir, tgt_dir, k):
                     path_out = os.path.join(tgt_dir, k_path)
                 else:
                     path_out = tgt_dir
-                is_done = make_thumb(path, name, path_out)
+                is_done = make_thumb(path, name, path_out, size)
                 if is_done:
                     count = count + 1
             else:
