@@ -18,7 +18,7 @@ def make_thumb(path, fn, tgt_dir, sz):
     print('Making thumbnail: ' + infile, '=> ', outfile)
     try:
         im = Image.open(infile)
-        im.thumbnail(size)
+        im.thumbnail(size, Image.ANTIALIAS)
         im.save(outfile, "JPEG")
         return True
     except IOError:
