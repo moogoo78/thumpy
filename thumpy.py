@@ -40,7 +40,7 @@ def check_image(fname):
 @click.command()
 @click.option('--src_dir', '-i', prompt='source dir', default = '.',
               help='source directory to make thumbnails')
-@click.option('--tgt_dir', '-o', prompt='target dir', default = '.',
+@click.option('--tgt_dir', '-o', prompt='target dir', default = 'thumbnails',
               help='target directory to save thumbnails')
 @click.option('--size', '-s', prompt='size', default=650,
               help='thumbnails size')
