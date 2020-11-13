@@ -7,6 +7,7 @@ from PIL import Image
 import click
 
 
+Image.MAX_IMAGE_PIXELS = None # prevent "Decompression Bomb", Error https://stackoverflow.com/questions/25705773/image-cropping-tool-python
 
 def make_thumb(path, fn, tgt_dir, sz, prefix):
     size = (sz, sz)
